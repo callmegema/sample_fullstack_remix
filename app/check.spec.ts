@@ -7,26 +7,26 @@ describe("check", () => {
 
   const prisma = vPrisma.client;
 
-  test("Add user", async () => {
-    const createdUser = await prisma.user.create({
+  test("Add post", async () => {
+    const post = await prisma.post.create({
       data: {
-        name: "user1",
-        email: "user1@example.com",
+        title: "Hello World",
+        content: "This is a post content",
       },
     });
 
     expect(
-      await prisma.user.findFirst({
+      await prisma.post.findFirst({
         where: {
-          id: createdUser.id,
+          id: post.id,
         },
       })
-    ).toStrictEqual(createdUser);
-    expect(await prisma.user.count()).toBe(1);
+    ).toStrictEqual(post);
+    expect(await prisma.post.count()).toBe(1);
   });
 
   // Each test case is isolated in a transaction and also rolled back, so it is not affected by another test result.
-  test("Count user", async () => {
-    expect(await prisma.user.count()).toBe(0);
+  test("Count post", async () => {
+    expect(await prisma.post.count()).toBe(0);
   });
 });
